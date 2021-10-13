@@ -137,3 +137,24 @@ const boxScale10 = new IntersectionObserver(function (e, o, x, y, z) {
 boxScale8.observe(box08);
 boxScale9.observe(box09);
 boxScale10.observe(box10);
+
+const sectionReavel = document.querySelectorAll(".section");
+
+const optionTwo = {
+  root: null,
+  threshold: 0.15,
+};
+
+const sectionCallBack = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section--hidden");
+  observer.unobserve(entry.target);
+};
+
+const sectionObserve = new IntersectionObserver(sectionCallBack, optionTwo);
+sectionReavel.forEach((sec) => {
+  sectionObserve.observe(sec);
+  sec.classList.add("section--hidden");
+});
